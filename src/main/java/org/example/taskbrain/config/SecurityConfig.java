@@ -21,6 +21,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/projects/**").permitAll()
                                 .requestMatchers("/api/tasks/**").permitAll()
                                 .requestMatchers("/api/employees/**").permitAll()
+                                .requestMatchers("/api/pm/**").permitAll()
                                 .anyRequest().authenticated()
                         );
         return http.build();
