@@ -1,0 +1,39 @@
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap";
+
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+@theme {
+  --font-primary: Inter, system-ui, sans-serif;
+  --font-display: "Bebas Neue", sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-primary);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+.input {
+  @apply w-full border border-gray-300 rounded-lg px-4 py-3
+  focus:outline-none focus:ring-2 focus:ring-purple-400;
+}
+
+.btn-primary {
+  @apply w-full bg-gradient-to-r from-purple-500 to-pink-500
+  text-white py-3 rounded-lg font-semibold
+  hover:opacity-90 transition;
+}
+
+
