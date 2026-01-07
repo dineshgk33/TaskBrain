@@ -16,6 +16,7 @@ public class EmployeeProfile {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @com.fasterxml.jackson.annotation.JsonBackReference
     private User user;
 
     private String skills;

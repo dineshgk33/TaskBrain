@@ -3,10 +3,8 @@ package org.example.taskbrain.dto;
 import lombok.Data;
 
 @Data
-public class RegisterRequest {
+public class UpdateUserRequest {
     private String fullName;
-    private String email;
     private String password;
-    private String role;
-    private String workRole;
+    private String currentPassword;
 }

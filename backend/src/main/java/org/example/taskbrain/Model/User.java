@@ -29,10 +29,29 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
+    @Column(name = "work_role")
+    private String workRole;
+
     @Column(nullable = false)
     private Boolean active = false;
 
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
-}
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @com.fasterxml.jackson.annotation.JsonManagedReference
+    private EmployeeProfile employeeProfile;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manager_id")
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private User manager;
+
+    @Column(name = "created_at")
+    private java.time.LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = java.time.LocalDateTime.now();
+    }
+}

@@ -6,12 +6,19 @@ const Sidebar = ({ role, isOpen, onClose }) => {
         { label: "User Management", path: "/dashboard/manager/users" },
     ];
 
-    const studentLinks = [
-        { label: "My Tasks", path: "/dashboard/student" },
-        { label: "Progress", path: "/dashboard/student/progress" },
+    const employeeLinks = [
+        { label: "My Tasks", path: "/dashboard/employee" },
+        { label: "Progress", path: "/dashboard/employee/progress" },
     ];
 
-    const links = role === "manager" ? managerLinks : studentLinks;
+    const studentLinks = [
+        { label: "My Tasks", path: "/dashboard/student" },
+    ];
+
+    let links = [];
+    if (role === "manager") links = managerLinks;
+    else if (role === "employee") links = employeeLinks;
+    else links = studentLinks;
 
     return (
         <>
@@ -35,15 +42,15 @@ const Sidebar = ({ role, isOpen, onClose }) => {
             >
                 {/* HEADER */}
                 <div className="h-16 flex items-center px-6 border-b">
-          <span
-              className="
+                    <span
+                        className="
               text-lg font-semibold
               bg-gradient-to-r from-pink-500 to-violet-500
               bg-clip-text text-transparent
             "
-          >
-            {role === "manager" ? "Manager Panel" : "Student Panel"}
-          </span>
+                    >
+                        {role === "manager" ? "Manager Panel" : role === "employee" ? "Employee Panel" : "Student Panel"}
+                    </span>
                 </div>
 
                 {/* LINKS */}
@@ -55,10 +62,9 @@ const Sidebar = ({ role, isOpen, onClose }) => {
                             onClick={onClose}
                             className={({ isActive }) =>
                                 `block px-4 py-2 rounded-lg text-sm font-medium transition-all
-                ${
-                                    isActive
-                                        ? "bg-pink-100 text-pink-600"
-                                        : "text-gray-700 hover:bg-gray-100"
+                ${isActive
+                                    ? "bg-pink-100 text-pink-600"
+                                    : "text-gray-700 hover:bg-gray-100"
                                 }`
                             }
                         >

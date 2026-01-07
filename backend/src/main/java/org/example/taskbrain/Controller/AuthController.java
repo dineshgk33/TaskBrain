@@ -41,6 +41,7 @@ public class AuthController {
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
         user.setRole(role);
+        user.setWorkRole(request.getWorkRole());
 
         User savedUser = userService.createUser(user);
         return ResponseEntity.ok(savedUser);
@@ -86,6 +87,10 @@ public class AuthController {
         response.put("token", token);
         response.put("role", user.getRole().name());
         response.put("email", user.getEmail());
+        response.put("userId", String.valueOf(user.getUserId()));
+        response.put("workRole", user.getWorkRole());
+
+        System.out.println("Login Response - Role: " + user.getRole() + ", WorkRole: " + user.getWorkRole());
 
         return ResponseEntity.ok(response);
     }

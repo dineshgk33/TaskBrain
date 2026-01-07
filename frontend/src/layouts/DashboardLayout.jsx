@@ -47,10 +47,17 @@ const DashboardLayout = () => {
                     </div>
 
                     <div className="flex items-center gap-4">
-            <span className="hidden sm:inline-block px-3 py-1 rounded-full text-sm
+                        <span className="hidden sm:inline-block px-3 py-1 rounded-full text-sm
               bg-pink-100 text-pink-600 capitalize">
-              {role}
-            </span>
+                            {role}
+                        </span>
+
+                        <button
+                            onClick={() => navigate("/dashboard/profile")}
+                            className="text-gray-600 hover:text-pink-600 font-medium transition-colors"
+                        >
+                            Profile
+                        </button>
 
                         <button
                             onClick={handleLogout}

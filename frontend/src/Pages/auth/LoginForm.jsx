@@ -25,18 +25,32 @@ const LoginForm = ({ onSwitch }) => {
         frontendRole = "manager";
       } else if (response.role === "STUDENT") {
         frontendRole = "student";
+      } else if (response.role === "EMPLOYEE") {
+        frontendRole = "employee";
+      }
+
+      // Determine precise frontend role
+      let finalRole = frontendRole;
+      if (frontendRole === "student") {
+        const workRole = response.workRole;
+        if (workRole && workRole.toLowerCase() !== "student" && workRole !== "N/A") {
+          finalRole = "employee";
+        } else {
+          finalRole = "student";
+        }
       }
 
       localStorage.setItem("token", response.token);
-      localStorage.setItem("role", frontendRole);
+      localStorage.setItem("role", finalRole); // Store 'manager', 'employee', or 'student'
       localStorage.setItem("userEmail", response.email);
+      localStorage.setItem("userId", response.userId);
       localStorage.setItem("isAuthenticated", "true");
 
-      // Redirect based on role
-      if (frontendRole === "manager") {
+      // Redirect based on finalRole
+      if (finalRole === "manager") {
         navigate("/dashboard/manager");
-      } else if (frontendRole === "student") {
-        navigate("/dashboard/student");
+      } else if (finalRole === "employee") {
+        navigate("/dashboard/employee");
       } else {
         navigate("/dashboard/student");
       }

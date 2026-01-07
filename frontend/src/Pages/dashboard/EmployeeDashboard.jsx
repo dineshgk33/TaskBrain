@@ -19,7 +19,7 @@ const StatCard = ({ title, value, icon, color }) => {
     );
 };
 
-const StudentDashboard = () => {
+const EmployeeDashboard = () => {
     const [tasks, setTasks] = useState([]);
     const [stats, setStats] = useState({
         total: 0,
@@ -54,7 +54,7 @@ const StudentDashboard = () => {
             {/* HEADER */}
             <div>
                 <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
-                    Student Dashboard
+                    Employee Dashboard
                 </h2>
                 <p className="text-sm text-gray-500 mt-1">
                     View your assigned tasks and track your progress
@@ -120,4 +120,5 @@ const StudentDashboard = () => {
     );
 };
 
-export default StudentDashboard;
+export default EmployeeDashboard;
+

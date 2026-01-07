@@ -6,7 +6,11 @@ import {
     UserPlus,
 } from "lucide-react";
 
+import { useState, useEffect } from "react";
+import { getAllUsers } from "../../services/userService";
+
 const StatCard = ({ title, value, icon, accent }) => {
+    // ... (StatCard component remains same)
     const Icon = icon;
     return (
         <div className="bg-white rounded-xl border p-5 flex items-center justify-between hover:shadow-md transition-all">
@@ -27,6 +31,36 @@ const StatCard = ({ title, value, icon, accent }) => {
 };
 
 const ManagerDashboard = () => {
+    const [stats, setStats] = useState({
+        total: 0,
+        developers: 0,
+        testers: 0,
+        activeRoles: 0
+    });
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const users = await getAllUsers();
+                const developers = users.filter(u => u.workRole === 'developer').length;
+                const testers = users.filter(u => u.workRole === 'tester').length;
+
+                // Calculate unique active roles count
+                const uniqueRoles = new Set(users.map(u => u.workRole).filter(r => r));
+
+                setStats({
+                    total: users.length,
+                    developers,
+                    testers,
+                    activeRoles: uniqueRoles.size
+                });
+            } catch (error) {
+                console.error("Failed to fetch dashboard stats", error);
+            }
+        };
+
+        fetchStats();
+    }, []);
     return (
         <div className="space-y-8">
             {/* HEADER */}
@@ -54,35 +88,7 @@ const ManagerDashboard = () => {
             </div>
 
             {/* STATS GRID */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <StatCard
-                    title="Total Members"
-                    value="3"
-                    icon={Users}
-                    accent="bg-pink-500"
-                />
 
-                <StatCard
-                    title="Developers"
-                    value="2"
-                    icon={Code}
-                    accent="bg-indigo-500"
-                />
-
-                <StatCard
-                    title="Testers"
-                    value="1"
-                    icon={Bug}
-                    accent="bg-violet-500"
-                />
-
-                <StatCard
-                    title="Active Roles"
-                    value="3"
-                    icon={ArrowUpRight}
-                    accent="bg-emerald-500"
-                />
-            </div>
 
             {/* INFO / GUIDANCE CARD */}
             <div className="bg-white rounded-xl border p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">

@@ -30,4 +30,10 @@ public class TaskController {
         List<Task> tasks = taskService.getTasksByProject(projectId);
         return ResponseEntity.ok(tasks);
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Task>> getTasksByUser(@PathVariable Long userId) {
+        List<Task> tasks = taskService.getTasksByUserId(userId);
+        return ResponseEntity.ok(tasks);
+    }
 }

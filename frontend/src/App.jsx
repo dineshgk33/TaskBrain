@@ -3,10 +3,12 @@ import Landing from "./pages/Landing";
 import Auth from "./pages/auth/Auth";
 import LoginForm from "./pages/auth/LoginForm";
 import ManagerDashboard from "./pages/dashboard/ManagerDashboard";
+import EmployeeDashboard from "./pages/dashboard/EmployeeDashboard";
 import StudentDashboard from "./pages/dashboard/StudentDashboard";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
 import UserManagement from "./pages/dashboard/manager/UserManagement.jsx";
+import Profile from "./pages/dashboard/Profile.jsx";
 
 
 function App() {
@@ -23,23 +25,32 @@ function App() {
                     </ProtectedRoute>
                 }
             >
-            <Route
-                path="/dashboard/manager"
-                element={
-                    <ProtectedRoute allowedRole="manager">
-                        <ManagerDashboard />
-                    </ProtectedRoute>
-                }
-            />
+                <Route
+                    path="/dashboard/manager"
+                    element={
+                        <ProtectedRoute allowedRole="manager">
+                            <ManagerDashboard />
+                        </ProtectedRoute>
+                    }
+                />
 
-            <Route
-                path="/dashboard/student"
-                element={
-                    <ProtectedRoute allowedRole="student">
-                        <StudentDashboard />
-                    </ProtectedRoute>
-                }
-            />
+                <Route
+                    path="/dashboard/employee"
+                    element={
+                        <ProtectedRoute allowedRole="employee">
+                            <EmployeeDashboard />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/dashboard/student"
+                    element={
+                        <ProtectedRoute allowedRole="student">
+                            <StudentDashboard />
+                        </ProtectedRoute>
+                    }
+                />
                 <Route
                     path="/dashboard/manager/users"
                     element={
@@ -49,6 +60,7 @@ function App() {
                     }
                 />
 
+                <Route path="/dashboard/profile" element={<Profile />} />
             </Route>
         </Routes>
     );

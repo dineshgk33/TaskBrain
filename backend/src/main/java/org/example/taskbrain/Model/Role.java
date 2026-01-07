@@ -6,6 +6,6 @@ public enum Role {
     PROJECT_MANAGER,
     TEAM_MEMBER,
     HR,
-    STUDENT
+    STUDENT,
+    EMPLOYEE
 }
-

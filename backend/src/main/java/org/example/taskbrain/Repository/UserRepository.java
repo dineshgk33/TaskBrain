@@ -10,5 +10,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
 
     Optional<User> findByVerificationCode(String verificationCode);
-}
 
+    java.util.List<User> findByManager_Email(String email);
+
+    @org.springframework.data.jpa.repository.Modifying
+    @org.springframework.data.jpa.repository.Query("DELETE FROM User u WHERE u.active = false AND u.createdAt < :cutoffTime")
+    void deleteUnverifiedOlderThan(
+            @org.springframework.data.repository.query.Param("cutoffTime") java.time.LocalDateTime cutoffTime);
+}

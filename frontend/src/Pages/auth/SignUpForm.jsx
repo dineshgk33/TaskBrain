@@ -23,14 +23,21 @@ const SignupForm = ({ onSwitch }) => {
     try {
       // Map frontend role to backend role
       let backendRole = role;
-      if (role === "manager") backendRole = "PROJECT_MANAGER";
-      else if (role === "student") backendRole = "STUDENT";
+      let workRole = ""; // Default empty
+
+      if (role === "manager") {
+        backendRole = "PROJECT_MANAGER";
+      } else if (role === "student") {
+        backendRole = "STUDENT";
+        workRole = "Student";
+      }
 
       const userData = {
         fullName,
         email,
         password,
-        role: backendRole
+        role: backendRole,
+        workRole: workRole // Send workRole to backend
       };
 
       const response = await signup(userData);

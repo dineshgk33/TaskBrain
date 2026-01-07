@@ -12,11 +12,10 @@ const RoleSelector = ({ role, setRole }) => {
                     onClick={() => setRole("manager")}
                     className={`
             py-3 rounded-lg border font-medium text-center transition-all
-            ${
-                        role === "manager"
+            ${role === "manager"
                             ? "bg-pink-500 text-white border-pink-500"
                             : "bg-white text-gray-700 border-gray-300 hover:border-pink-400"
-                    }
+                        }
           `}
                 >
                     Manager
@@ -28,11 +27,10 @@ const RoleSelector = ({ role, setRole }) => {
                     onClick={() => setRole("student")}
                     className={`
             py-3 rounded-lg border font-medium text-center transition-all
-            ${
-                        role === "student"
+            ${role === "student"
                             ? "bg-pink-500 text-white border-pink-500"
                             : "bg-white text-gray-700 border-gray-300 hover:border-pink-400"
-                    }
+                        }
           `}
                 >
                     Student
