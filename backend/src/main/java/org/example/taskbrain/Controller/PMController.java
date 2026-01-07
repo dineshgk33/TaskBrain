@@ -1,10 +1,10 @@
-package org.example.taskbrain.Controller;
+package org.example.taskbrain.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.taskbrain.DTO.CreateEmployeeRequest;
-import org.example.taskbrain.DTO.UpdateEmployeeRequest;
-import org.example.taskbrain.Model.EmployeeProfile;
-import org.example.taskbrain.Service.PMService;
+import org.example.taskbrain.dto.CreateEmployeeRequest;
+import org.example.taskbrain.dto.UpdateEmployeeRequest;
+import org.example.taskbrain.model.EmployeeProfile;
+import org.example.taskbrain.service.PMService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

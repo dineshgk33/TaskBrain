@@ -1,9 +1,9 @@
-package org.example.taskbrain.Service;
+package org.example.taskbrain.service;
 
-import org.example.taskbrain.Model.Project;
-import org.example.taskbrain.Model.User;
-import org.example.taskbrain.Repository.ProjectRepository;
-import org.example.taskbrain.Repository.UserRepository;
+import org.example.taskbrain.model.Project;
+import org.example.taskbrain.model.User;
+import org.example.taskbrain.repository.ProjectRepository;
+import org.example.taskbrain.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -29,3 +29,4 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 }
+

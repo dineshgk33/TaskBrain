@@ -1,4 +1,5 @@
-package org.example.taskbrain.Exception;
+package org.example.taskbrain.exception;
 
 public class CustomException {
 }
+

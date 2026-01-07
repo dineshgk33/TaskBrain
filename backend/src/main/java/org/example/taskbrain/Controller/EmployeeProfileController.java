@@ -1,8 +1,8 @@
-package org.example.taskbrain.Controller;
+package org.example.taskbrain.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.taskbrain.Model.EmployeeProfile;
-import org.example.taskbrain.Service.EmployeeProfileService;
+import org.example.taskbrain.model.EmployeeProfile;
+import org.example.taskbrain.service.EmployeeProfileService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,3 +20,4 @@ public class EmployeeProfileController {
         return profileService.createOrUpdateProfile(userId, profile);
     }
 }
+

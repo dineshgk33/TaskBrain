@@ -1,8 +1,8 @@
-package org.example.taskbrain.Service;
+package org.example.taskbrain.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.taskbrain.Model.User;
-import org.example.taskbrain.Repository.UserRepository;
+import org.example.taskbrain.model.User;
+import org.example.taskbrain.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,3 +31,4 @@ public class CustomUserDetailsService implements UserDetailsService {
         );
     }
 }
+

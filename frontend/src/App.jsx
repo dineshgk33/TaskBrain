@@ -1,23 +1,21 @@
 import { Routes, Route } from "react-router-dom";
-import Landing from "./Pages/Landing";
-import Auth from "./Pages/auth/Auth";
-import LoginForm from "./Pages/auth/LoginForm";
-import ManagerDashboard from "./Pages/dashboard/ManagerDashboard";
-import StudentDashboard from "./Pages/dashboard/StudentDashboard";
+import Landing from "./pages/Landing";
+import Auth from "./pages/auth/Auth";
+import LoginForm from "./pages/auth/LoginForm";
+import ManagerDashboard from "./pages/dashboard/ManagerDashboard";
+import StudentDashboard from "./pages/dashboard/StudentDashboard";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
-import UserManagement from "./Pages/dashboard/manager/UserManagement.jsx";
+import UserManagement from "./pages/dashboard/manager/UserManagement.jsx";
 
 
 function App() {
     return (
         <Routes>
-            {/* PUBLIC */}
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/login" element={<LoginForm />} />
 
-            {/* DASHBOARD */}
             <Route
                 element={
                     <ProtectedRoute>
@@ -57,3 +55,4 @@ function App() {
 }
 
 export default App;
+

@@ -1,4 +1,4 @@
-package org.example.taskbrain.Model;
+package org.example.taskbrain.model;
 
 public enum Role {
     USER,
@@ -8,3 +8,4 @@ public enum Role {
     HR,
     STUDENT
 }
+

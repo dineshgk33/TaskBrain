@@ -1,7 +1,7 @@
-package org.example.taskbrain.Controller;
+package org.example.taskbrain.controller;
 
-import org.example.taskbrain.Model.Project;
-import org.example.taskbrain.Service.ProjectService;
+import org.example.taskbrain.model.Project;
+import org.example.taskbrain.service.ProjectService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,3 +24,4 @@ public class ProjectController {
         return ResponseEntity.ok(savedProject);
     }
 }
+

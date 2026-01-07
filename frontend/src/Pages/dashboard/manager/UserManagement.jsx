@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import UserFormModal from "../../../Components/dashboard/UserFormModel.jsx";
+import UserFormModal from "../../../components/dashboard/UserFormModel.jsx";
 import { User, Pencil } from "lucide-react";
 
 const UserManagement = () => {
@@ -223,3 +223,4 @@ const UserManagement = () => {
 };
 
 export default UserManagement;
+

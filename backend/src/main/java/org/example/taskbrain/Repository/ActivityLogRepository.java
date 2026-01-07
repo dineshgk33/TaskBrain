@@ -1,4 +1,5 @@
-package org.example.taskbrain.Repository;
+package org.example.taskbrain.repository;
 
 public interface ActivityLogRepository {
 }
+

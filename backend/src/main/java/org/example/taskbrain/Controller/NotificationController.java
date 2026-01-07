@@ -1,4 +1,5 @@
-package org.example.taskbrain.Controller;
+package org.example.taskbrain.controller;
 
 public class NotificationController {
 }
+

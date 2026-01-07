@@ -1,7 +1,7 @@
-package org.example.taskbrain.Repository;
+package org.example.taskbrain.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.example.taskbrain.Model.User;
+import org.example.taskbrain.model.User;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -11,3 +11,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByVerificationCode(String verificationCode);
 }
+

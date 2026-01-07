@@ -6,7 +6,8 @@ import {
     UserPlus,
 } from "lucide-react";
 
-const StatCard = ({ title, value, icon: Icon, accent }) => {
+const StatCard = ({ title, value, icon, accent }) => {
+    const Icon = icon;
     return (
         <div className="bg-white rounded-xl border p-5 flex items-center justify-between hover:shadow-md transition-all">
             <div>
@@ -108,3 +109,4 @@ const ManagerDashboard = () => {
 };
 
 export default ManagerDashboard;
+

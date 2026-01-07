@@ -1,18 +1,21 @@
 import { ClipboardList, CheckCircle, Clock } from "lucide-react";
 
-const StatCard = ({ title, value, icon: Icon, color }) => (
-    <div className="bg-white border rounded-xl p-5 flex items-center justify-between">
-        <div>
-            <p className="text-sm text-gray-500">{title}</p>
-            <p className="text-2xl font-semibold text-gray-800 mt-1">
-                {value}
-            </p>
+const StatCard = ({ title, value, icon, color }) => {
+    const Icon = icon;
+    return (
+        <div className="bg-white border rounded-xl p-5 flex items-center justify-between">
+            <div>
+                <p className="text-sm text-gray-500">{title}</p>
+                <p className="text-2xl font-semibold text-gray-800 mt-1">
+                    {value}
+                </p>
+            </div>
+            <div className={`p-3 rounded-lg ${color} bg-opacity-15`}>
+                <Icon className={`w-6 h-6 ${color.replace("bg", "text")}`} />
+            </div>
         </div>
-        <div className={`p-3 rounded-lg ${color} bg-opacity-15`}>
-            <Icon className={`w-6 h-6 ${color.replace("bg", "text")}`} />
-        </div>
-    </div>
-);
+    );
+};
 
 const StudentDashboard = () => {
     return (
@@ -65,3 +68,4 @@ const StudentDashboard = () => {
 };
 
 export default StudentDashboard;
+

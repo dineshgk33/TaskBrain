@@ -1,9 +1,9 @@
-package org.example.taskbrain.Util;
+package org.example.taskbrain.util;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
-import org.example.taskbrain.Model.User;
+import org.example.taskbrain.model.User;
 
 import java.security.Key;
 import java.util.Date;
@@ -70,3 +70,4 @@ public class JwtUtil {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
 }
+

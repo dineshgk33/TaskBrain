@@ -1,6 +1,6 @@
-package org.example.taskbrain.Repository;
+package org.example.taskbrain.repository;
 
-import org.example.taskbrain.Model.Task;
+import org.example.taskbrain.model.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 

@@ -1,12 +1,12 @@
-package org.example.taskbrain.Controller;
+package org.example.taskbrain.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.taskbrain.DTO.LoginRequest;
-import org.example.taskbrain.DTO.RegisterRequest;
-import org.example.taskbrain.Model.Role;
-import org.example.taskbrain.Model.User;
-import org.example.taskbrain.Service.UserService;
-import org.example.taskbrain.Util.JwtUtil;
+import org.example.taskbrain.dto.LoginRequest;
+import org.example.taskbrain.dto.RegisterRequest;
+import org.example.taskbrain.model.Role;
+import org.example.taskbrain.model.User;
+import org.example.taskbrain.service.UserService;
+import org.example.taskbrain.util.JwtUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,16 +48,35 @@ public class AuthController {
 
     @GetMapping("/verify")
     public String verify(@RequestParam("code") String code) {
-        return userService.verifyUser(code) ? "verify_success" : "verify_fail";
+        String result = userService.verifyUser(code);
+        switch (result) {
+            case "SUCCESS":
+                return "<h1>Verification Successful!</h1><p>You can now login.</p>";
+            case "ALREADY_VERIFIED":
+                return "<h1>Account Already Verified</h1><p>You can already login.</p>";
+            case "INVALID":
+            default:
+                return "<h1>Invalid Verification Link</h1><p>Please check the link or signup again.</p>";
+        }
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
 
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()));
+        System.out.println("Login attempt for email: " + request.getEmail());
+
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()));
+            System.out.println("Authentication successful for: " + request.getEmail());
+        } catch (Exception e) {
+            System.out.println("Authentication FAILED for: " + request.getEmail());
+            System.out.println("Reason: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(401).body("Authentication failed: " + e.getMessage());
+        }
 
         User user = userService.validateUser(request.getEmail(), request.getPassword());
 

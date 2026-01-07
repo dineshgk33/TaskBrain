@@ -72,3 +72,4 @@ const Sidebar = ({ role, isOpen, onClose }) => {
 };
 
 export default Sidebar;
+

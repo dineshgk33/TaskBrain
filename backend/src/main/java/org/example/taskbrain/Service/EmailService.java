@@ -1,4 +1,4 @@
-package org.example.taskbrain.Service;
+package org.example.taskbrain.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -39,3 +39,4 @@ public class EmailService {
         mailSender.send(message);
     }
 }
+

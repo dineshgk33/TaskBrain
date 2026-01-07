@@ -1,4 +1,4 @@
-package org.example.taskbrain.Model;
+package org.example.taskbrain.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,3 +41,4 @@ public class Task {
     @JoinColumn(name = "project_id")
     private Project project;
 }
+

@@ -1,10 +1,10 @@
-package org.example.taskbrain.Service;
+package org.example.taskbrain.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.taskbrain.Model.EmployeeProfile;
-import org.example.taskbrain.Model.User;
-import org.example.taskbrain.Repository.EmployeeProfileRepository;
-import org.example.taskbrain.Repository.UserRepository;
+import org.example.taskbrain.model.EmployeeProfile;
+import org.example.taskbrain.model.User;
+import org.example.taskbrain.repository.EmployeeProfileRepository;
+import org.example.taskbrain.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,3 +33,4 @@ public class EmployeeProfileService {
         return profileRepo.save(profile);
     }
 }
+

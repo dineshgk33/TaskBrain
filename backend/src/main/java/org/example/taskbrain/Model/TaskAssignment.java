@@ -1,4 +1,5 @@
-package org.example.taskbrain.Model;
+package org.example.taskbrain.model;
 
 public class TaskAssignment {
 }
+

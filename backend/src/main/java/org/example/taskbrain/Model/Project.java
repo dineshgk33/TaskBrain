@@ -1,4 +1,4 @@
-package org.example.taskbrain.Model;
+package org.example.taskbrain.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,3 +33,4 @@ public class Project {
     @JoinColumn(name = "created_by", nullable = false)
     private User createdBy;
 }
+

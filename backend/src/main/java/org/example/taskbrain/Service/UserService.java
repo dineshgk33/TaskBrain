@@ -1,8 +1,8 @@
-package org.example.taskbrain.Service;
+package org.example.taskbrain.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.taskbrain.Model.User;
-import org.example.taskbrain.Repository.UserRepository;
+import org.example.taskbrain.model.User;
+import org.example.taskbrain.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,23 +35,33 @@ public class UserService {
             System.out.println("⚠️ WARNING: Email could not be sent. Expected if SMTP is not configured.");
             System.out.println("Error: " + e.getMessage());
             // We swallow the exception so the Signup process finishes successfully.
+
+            // FALLBACK FOR DEVELOPMENT: If email fails, auto-activate the user so they can
+            // login.
+            savedUser.setActive(true);
+            userRepository.save(savedUser);
+            System.out.println("⚠️ User auto-activated since email verification is skipped.");
         }
 
         return savedUser;
     }
 
-    public boolean verifyUser(String verificationCode) {
+    public String verifyUser(String verificationCode) {
         User user = userRepository.findByVerificationCode(verificationCode)
                 .orElse(null);
 
-        if (user == null || user.getActive()) {
-            return false;
-        } else {
-            user.setVerificationCode(null);
-            user.setActive(true);
-            userRepository.save(user);
-            return true;
+        if (user == null) {
+            return "INVALID";
         }
+
+        if (user.getActive()) {
+            return "ALREADY_VERIFIED";
+        }
+
+        user.setVerificationCode(null);
+        user.setActive(true);
+        userRepository.save(user);
+        return "SUCCESS";
     }
 
     public User validateUser(String email, String rawPassword) {

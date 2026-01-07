@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Sidebar from "../Components/dashboard/Sidebar";
+import Sidebar from "../components/dashboard/Sidebar";
 
 
 const DashboardLayout = () => {
@@ -75,3 +75,4 @@ const DashboardLayout = () => {
 
 
 export default DashboardLayout;
+

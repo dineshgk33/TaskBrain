@@ -7,6 +7,7 @@ const UserFormModal = ({ isOpen, onClose, onSave, initialData }) => {
     const [workRole, setWorkRole] = useState("");
 
     // Prefill data for UPDATE later
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         if (initialData) {
             setName(initialData.name || "");
@@ -125,3 +126,4 @@ const UserFormModal = ({ isOpen, onClose, onSave, initialData }) => {
 };
 
 export default UserFormModal;
+

@@ -1,11 +1,11 @@
-package org.example.taskbrain.Service;
+package org.example.taskbrain.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.taskbrain.Model.*;
-import org.example.taskbrain.Repository.EmployeeProfileRepository;
-import org.example.taskbrain.Repository.ProjectRepository;
-import org.example.taskbrain.Repository.TaskRepository;
-import org.example.taskbrain.Repository.UserRepository;
+import org.example.taskbrain.model.*;
+import org.example.taskbrain.repository.EmployeeProfileRepository;
+import org.example.taskbrain.repository.ProjectRepository;
+import org.example.taskbrain.repository.TaskRepository;
+import org.example.taskbrain.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

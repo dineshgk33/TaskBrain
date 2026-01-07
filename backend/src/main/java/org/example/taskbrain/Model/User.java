@@ -1,4 +1,4 @@
-package org.example.taskbrain.Model;
+package org.example.taskbrain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -35,3 +35,4 @@ public class User {
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
 }
+

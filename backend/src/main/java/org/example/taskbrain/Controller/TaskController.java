@@ -1,8 +1,8 @@
-package org.example.taskbrain.Controller;
+package org.example.taskbrain.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.taskbrain.Model.Task;
-import org.example.taskbrain.Service.TaskService;
+import org.example.taskbrain.model.Task;
+import org.example.taskbrain.service.TaskService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,50 +1,70 @@
 import { useState } from "react";
 import RoleSelector from "./RoleSelector.jsx";
 import { useNavigate } from "react-router-dom";
+import { signup } from "../../services/authService";
 
 
 const SignupForm = ({ onSwitch }) => {
-
-  const navigate = useNavigate();
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
 
-    const handleSignup = (e) => {
-        e.preventDefault();
+  const handleSignup = async (e) => {
+    e.preventDefault();
 
-        // STEP 1: BASIC VALIDATION
-        if (!fullName || !email || !password || !role) {
-            alert("All fields are required");
-            return;
-        }
+    // STEP 1: BASIC VALIDATION
+    if (!fullName || !email || !password || !role) {
+      alert("All fields are required");
+      return;
+    }
 
-        // STEP 1: VERIFICATION LOG
-        console.log("STEP 1: Signup Data Captured ✅", {
-            fullName,
-            email,
-            password,
-            role,
-        });
+    try {
+      // Map frontend role to backend role
+      let backendRole = role;
+      if (role === "manager") backendRole = "PROJECT_MANAGER";
+      else if (role === "student") backendRole = "STUDENT";
 
-        // STEP 2: TEMP AUTH STORAGE
-        localStorage.setItem("role", role.toLowerCase());
-        localStorage.setItem("isAuthenticated", "true");
+      const userData = {
+        fullName,
+        email,
+        password,
+        role: backendRole
+      };
 
-        console.log("STEP 2: Auth Data Stored ✅", {
-            role: localStorage.getItem("role"),
-            isAuthenticated: localStorage.getItem("isAuthenticated"),
-        });
+      const response = await signup(userData);
 
-        // STEP 3: ROLE-BASED REDIRECT
-        if (role === "manager") {
-            navigate("/dashboard/manager");
-        } else if (role === "student") {
-            navigate("/dashboard/student");
-        }
-    };
+      console.log("Signup Successful:", response);
+
+      // Store minimal auth data or just redirect to login? 
+      // Usually after signup we might want them to login or auto-login.
+      // keeping existing logic of redirecting but assuming they are authenticated might be wrong if we don't get a token.
+      // The backend signup returns the User object, not a token (based on AuthController).
+      // So we should probably redirect to login or auto-login. 
+      // BUT, the existing code was:
+      // localStorage.setItem("role", role.toLowerCase());
+      // localStorage.setItem("isAuthenticated", "true");
+      // navigate...
+
+      // IF the user wants "connect api", I should probably functionality correct.
+      // If backend returns User but not token, I can't really set "isAuthenticated" effectively for future API calls.
+      // However, for now request says "connect signup and login page". 
+      // Let's redirect to Login page after signup to be safe, or Login automatically.
+      // Since `login` API gives the token.
+
+      // Let's try to login automatically or just tell user to login.
+      // For a smooth experience, I'll redirect to Login (which is `onSwitch` here? No `onSwitch` switches the view component).
+
+      // let's just alert success and switch to login.
+      alert("Signup successful! Please login.");
+      onSwitch();
+
+    } catch (error) {
+      console.error("Signup Error:", error);
+      alert("Signup failed: " + (error.message || JSON.stringify(error)));
+    }
+  };
 
 
 
@@ -109,3 +129,4 @@ const SignupForm = ({ onSwitch }) => {
 };
 
 export default SignupForm;
+

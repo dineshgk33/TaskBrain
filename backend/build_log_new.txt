@@ -1,0 +1,23 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< org.example:TaskBrain >------------------------
+[INFO] Building TaskBrain 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ TaskBrain ---
+[INFO] Deleting C:\Users\HP\OneDrive\Documents\Desktop\TaskBrain\backend\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ TaskBrain ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ TaskBrain ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 51 source files with javac [debug parameters release 21] to target\classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  10.616 s
+[INFO] Finished at: 2026-01-07T09:39:16+05:30
+[INFO] ------------------------------------------------------------------------

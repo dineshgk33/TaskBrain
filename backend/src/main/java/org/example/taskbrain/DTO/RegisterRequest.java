@@ -1,4 +1,4 @@
-package org.example.taskbrain.DTO;
+package org.example.taskbrain.dto;
 
 import lombok.Data;
 
@@ -9,3 +9,4 @@ public class RegisterRequest {
     private String password;
     private String role;
 }
+

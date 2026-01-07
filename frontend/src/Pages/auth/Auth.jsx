@@ -2,8 +2,8 @@ import { useState } from "react";
 import AuthLayout from "../../layouts/AuthLayout.jsx";
 import LoginForm from "./LoginForm.jsx";
 import SignupForm from "./SignUpForm.jsx";
-import Footer from "../../Components/Footer.jsx";
-import Navbar from "../../Components/navbar/Navbar.jsx";
+import Footer from "../../components/Footer.jsx";
+import Navbar from "../../components/navbar/Navbar.jsx";
 
 
 
@@ -26,3 +26,4 @@ const Auth = () => {
 };
 
 export default Auth;
+
