@@ -9,6 +9,8 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
 import UserManagement from "./pages/dashboard/manager/UserManagement.jsx";
 import Profile from "./pages/dashboard/Profile.jsx";
+import Projects from "./Pages/dashboard/manager/Projects.jsx";
+import Tasks from "./Pages/dashboard/manager/Tasks.jsx"
 
 
 function App() {
@@ -61,6 +63,10 @@ function App() {
                 />
 
                 <Route path="/dashboard/profile" element={<Profile />} />
+                <Route path="/dashboard/manager/projects" element={<Projects />} />
+                <Route path="/dashboard/manager/tasks" element={<Tasks />} />
+
+
             </Route>
         </Routes>
     );

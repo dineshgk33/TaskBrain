@@ -2,7 +2,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "../components/dashboard/Sidebar";
 
-
 const DashboardLayout = () => {
     const navigate = useNavigate();
     const role = localStorage.getItem("role");
@@ -14,19 +13,18 @@ const DashboardLayout = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 flex">
+        <div className="min-h-screen bg-gray-100 flex flex-col">
+            {/* TOP BAR ROW (SIDEBAR + NAVBAR) */}
+            <div className="flex">
+                {/* SIDEBAR */}
+                <Sidebar
+                    role={role}
+                    isOpen={menuOpen}
+                    onClose={() => setMenuOpen(false)}
+                />
 
-            {/* SIDEBAR */}
-            <Sidebar
-                role={role}
-                isOpen={menuOpen}
-                onClose={() => setMenuOpen(false)}
-            />
-
-            {/* MAIN AREA */}
-            <div className="flex-1 min-w-0">
-                {/* DASHBOARD NAVBAR */}
-                <header className="h-16 flex items-center justify-between px-4 md:px-6 bg-white border-b">
+                {/* NAVBAR */}
+                <header className="h-16 flex-1 flex items-center justify-between px-4 md:px-6 bg-white">
                     <div className="flex items-center gap-3">
                         <button
                             className="md:hidden text-2xl"
@@ -35,51 +33,45 @@ const DashboardLayout = () => {
                             ☰
                         </button>
 
-                        <h1
-                            className="
-                text-lg md:text-xl font-semibold
-                bg-gradient-to-r from-pink-500 to-violet-500
-                bg-clip-text text-transparent
-              "
-                        >
+                        <h1 className="text-lg md:text-xl font-semibold bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
                             Dashboard
                         </h1>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <span className="hidden sm:inline-block px-3 py-1 rounded-full text-sm
-              bg-pink-100 text-pink-600 capitalize">
-                            {role}
-                        </span>
+                <span className="hidden sm:inline-block px-3 py-1 rounded-full text-sm bg-pink-100 text-pink-600 capitalize">
+                    {role}
+                </span>
 
                         <button
                             onClick={() => navigate("/dashboard/profile")}
-                            className="text-gray-600 hover:text-pink-600 font-medium transition-colors"
+                            className="text-gray-600 hover:text-pink-600 font-medium"
                         >
                             Profile
                         </button>
 
                         <button
                             onClick={handleLogout}
-                            className="px-4 py-1.5 rounded-lg text-sm font-medium
-                bg-gradient-to-r from-pink-500 to-violet-500
-                text-white hover:from-pink-600 hover:to-violet-600
-                transition-all"
+                            className="px-4 py-1.5 rounded-lg text-sm font-medium bg-gradient-to-r from-pink-500 to-violet-500 text-white"
                         >
                             Logout
                         </button>
                     </div>
                 </header>
+            </div>
 
-                {/* PAGE CONTENT */}
-                <main className="p-4 md:p-6">
+            {/* ✅ FULL-WIDTH GRADIENT BORDER */}
+            <div className="h-[2px] w-full bg-gradient-to-r from-pink-500 via-violet-500 to-indigo-500" />
+
+            {/* MAIN CONTENT ROW */}
+            <div className="flex flex-1">
+                <main className="flex-1 md:ml-72 p-4 md:p-6 overflow-y-auto">
                     <Outlet />
                 </main>
             </div>
         </div>
+
     );
 };
 
-
 export default DashboardLayout;
-

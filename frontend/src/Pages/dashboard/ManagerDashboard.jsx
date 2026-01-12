@@ -5,13 +5,13 @@ import {
     ArrowUpRight,
     UserPlus,
 } from "lucide-react";
-
 import { useState, useEffect } from "react";
 import { getAllUsers } from "../../services/userService";
 
+/* ---------------- STAT CARD ---------------- */
 const StatCard = ({ title, value, icon, accent }) => {
-    // ... (StatCard component remains same)
     const Icon = icon;
+
     return (
         <div className="bg-white rounded-xl border p-5 flex items-center justify-between hover:shadow-md transition-all">
             <div>
@@ -21,46 +21,67 @@ const StatCard = ({ title, value, icon, accent }) => {
                 </p>
             </div>
 
-            <div
-                className={`p-3 rounded-lg ${accent} bg-opacity-15`}
-            >
-                <Icon className={`w-6 h-6 ${accent.replace("bg", "text")}`} />
+            <div className={`p-3 rounded-lg ${accent} bg-opacity-15`}>
+                <Icon
+                    className={`w-6 h-6 ${accent.replace("bg", "text")}`}
+                />
             </div>
         </div>
     );
 };
 
+/* ---------------- MANAGER DASHBOARD ---------------- */
 const ManagerDashboard = () => {
     const [stats, setStats] = useState({
         total: 0,
         developers: 0,
         testers: 0,
-        activeRoles: 0
+        activeRoles: 0,
     });
+
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchStats = async () => {
             try {
                 const users = await getAllUsers();
-                const developers = users.filter(u => u.workRole === 'developer').length;
-                const testers = users.filter(u => u.workRole === 'tester').length;
 
-                // Calculate unique active roles count
-                const uniqueRoles = new Set(users.map(u => u.workRole).filter(r => r));
+                const developers = users.filter(
+                    (u) => u.workRole === "developer"
+                ).length;
+
+                const testers = users.filter(
+                    (u) => u.workRole === "tester"
+                ).length;
+
+                const uniqueRoles = new Set(
+                    users.map((u) => u.workRole).filter(Boolean)
+                );
 
                 setStats({
                     total: users.length,
                     developers,
                     testers,
-                    activeRoles: uniqueRoles.size
+                    activeRoles: uniqueRoles.size,
                 });
             } catch (error) {
                 console.error("Failed to fetch dashboard stats", error);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchStats();
     }, []);
+
+    if (loading) {
+        return (
+            <div className="text-sm text-gray-500">
+                Loading dashboard insights...
+            </div>
+        );
+    }
+
     return (
         <div className="space-y-8">
             {/* HEADER */}
@@ -76,11 +97,11 @@ const ManagerDashboard = () => {
 
                 <button
                     className="
-            flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium
-            bg-gradient-to-r from-pink-500 to-violet-500
-            text-white hover:from-pink-600 hover:to-violet-600
-            transition-all
-          "
+                        flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium
+                        bg-gradient-to-r from-pink-500 to-violet-500
+                        text-white hover:from-pink-600 hover:to-violet-600
+                        transition-all
+                    "
                 >
                     <UserPlus className="w-4 h-4" />
                     Add Member
@@ -88,17 +109,43 @@ const ManagerDashboard = () => {
             </div>
 
             {/* STATS GRID */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <StatCard
+                    title="Total Members"
+                    value={stats.total}
+                    icon={Users}
+                    accent="bg-blue-500"
+                />
+                <StatCard
+                    title="Developers"
+                    value={stats.developers}
+                    icon={Code}
+                    accent="bg-green-500"
+                />
+                <StatCard
+                    title="Testers"
+                    value={stats.testers}
+                    icon={Bug}
+                    accent="bg-yellow-500"
+                />
+                <StatCard
+                    title="Active Roles"
+                    value={stats.activeRoles}
+                    icon={Users}
+                    accent="bg-pink-500"
+                />
+            </div>
 
-
-            {/* INFO / GUIDANCE CARD */}
+            {/* INFO CARD */}
             <div className="bg-white rounded-xl border p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <h3 className="text-lg font-medium text-gray-800">
                         Team Management
                     </h3>
                     <p className="text-sm text-gray-600 mt-1 max-w-xl">
-                        Use the User Management section to add new members, assign work
-                        roles like developer or tester, and manage your team efficiently.
+                        Use the User Management section to add new members,
+                        assign work roles like developer or tester, and manage
+                        your team efficiently.
                     </p>
                 </div>
 
@@ -115,4 +162,3 @@ const ManagerDashboard = () => {
 };
 
 export default ManagerDashboard;
-
