@@ -11,6 +11,13 @@ import UserManagement from "./pages/dashboard/manager/UserManagement.jsx";
 import Profile from "./pages/dashboard/Profile.jsx";
 import Projects from "./Pages/dashboard/manager/Projects.jsx";
 import Tasks from "./Pages/dashboard/manager/Tasks.jsx"
+import EmployeeProjects from "./pages/dashboard/EmployeeProjects.jsx";
+import EmployeeAI from "./pages/dashboard/EmployeeAI.jsx";
+import EmployeeProgress from "./pages/dashboard/EmployeeProgress.jsx";
+import EmployeeProfile from "./pages/dashboard/EmployeeProfile.jsx";
+import Analytics from "./pages/dashboard/manager/Analytics.jsx";
+import AIInsights from "./pages/dashboard/manager/AIInsights.jsx";
+import Settings from "./pages/dashboard/manager/Settings.jsx";
 
 
 function App() {
@@ -46,6 +53,42 @@ function App() {
                 />
 
                 <Route
+                    path="/dashboard/employee/projects"
+                    element={
+                        <ProtectedRoute allowedRole="employee">
+                            <EmployeeProjects />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/dashboard/employee/ai"
+                    element={
+                        <ProtectedRoute allowedRole="employee">
+                            <EmployeeAI />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/dashboard/employee/progress"
+                    element={
+                        <ProtectedRoute allowedRole="employee">
+                            <EmployeeProgress />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/dashboard/employee/profile"
+                    element={
+                        <ProtectedRoute allowedRole="employee">
+                            <EmployeeProfile />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
                     path="/dashboard/student"
                     element={
                         <ProtectedRoute allowedRole="student">
@@ -62,10 +105,37 @@ function App() {
                     }
                 />
 
+                <Route
+                    path="/dashboard/manager/analytics"
+                    element={
+                        <ProtectedRoute allowedRole="manager">
+                            <Analytics />
+                        </ProtectedRoute>
+                    }
+                />
+
                 <Route path="/dashboard/profile" element={<Profile />} />
                 <Route path="/dashboard/manager/projects" element={<Projects />} />
                 <Route path="/dashboard/manager/tasks" element={<Tasks />} />
 
+
+                <Route
+                    path="/dashboard/manager/ai-insights"
+                    element={
+                        <ProtectedRoute allowedRole="manager">
+                            <AIInsights />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/dashboard/manager/settings"
+                    element={
+                        <ProtectedRoute allowedRole="manager">
+                            <Settings />
+                        </ProtectedRoute>
+                    }
+                />
 
             </Route>
         </Routes>

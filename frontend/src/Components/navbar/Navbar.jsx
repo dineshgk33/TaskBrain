@@ -61,23 +61,43 @@ const Navbar = () => {
 
                     {/* AUTH BUTTONS */}
                     <div className="hidden md:flex gap-4 ml-6">
-                        {["Login", "SignUp"].map((label) => (
+                        {localStorage.getItem("token") ? (
                             <button
-                                key={label}
-                                onClick={() => navigate("/auth")}
+                                onClick={() => {
+                                    const role = localStorage.getItem("role")?.toLowerCase();
+                                    navigate(role === "manager" ? "/dashboard/manager" : (role === "employee" ? "/dashboard/employee" : "/dashboard/student"));
+                                }}
                                 className="
-                  px-4 py-1.5 rounded-2xl font-medium
-                  bg-gradient-to-r from-pink-500 to-violet-500
-                  text-white
-                  transition-all duration-300
-                  hover:from-pink-600 hover:to-violet-600
-                  hover:shadow-lg hover:scale-105
-                  active:scale-95
-                "
+                                    px-6 py-1.5 rounded-2xl font-medium
+                                    bg-gradient-to-r from-pink-500 to-violet-500
+                                    text-white
+                                    transition-all duration-300
+                                    hover:from-pink-600 hover:to-violet-600
+                                    hover:shadow-lg hover:scale-105
+                                    active:scale-95
+                                "
                             >
-                                {label}
+                                Go to Dashboard
                             </button>
-                        ))}
+                        ) : (
+                            ["Login", "SignUp"].map((label) => (
+                                <button
+                                    key={label}
+                                    onClick={() => navigate("/auth")}
+                                    className="
+                                        px-4 py-1.5 rounded-2xl font-medium
+                                        bg-gradient-to-r from-pink-500 to-violet-500
+                                        text-white
+                                        transition-all duration-300
+                                        hover:from-pink-600 hover:to-violet-600
+                                        hover:shadow-lg hover:scale-105
+                                        active:scale-95
+                                    "
+                                >
+                                    {label}
+                                </button>
+                            ))
+                        )}
                     </div>
                 </>
             )}

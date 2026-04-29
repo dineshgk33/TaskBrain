@@ -11,11 +11,13 @@ const Sidebar = ({ role, isOpen, onClose }) => {
         { label: "Settings", path: "/dashboard/manager/settings" },
     ];
 
+    const workRole = (localStorage.getItem("workRole") || "").toUpperCase();
+
     const employeeLinks = [
         { label: "My Tasks", path: "/dashboard/employee" },
         { label: "My Projects", path: "/dashboard/employee/projects" },
         { label: "Progress", path: "/dashboard/employee/progress" },
-        { label: "AI Suggestions", path: "/dashboard/employee/ai" },
+        ...(workRole === "DESIGNER" ? [{ label: "AI Design Agent", path: "/dashboard/employee/ai" }] : []),
         { label: "Profile", path: "/dashboard/employee/profile" },
     ];
 
@@ -80,10 +82,9 @@ const Sidebar = ({ role, isOpen, onClose }) => {
                                 onClick={onClose}
                                 className={({ isActive }) =>
                                     `block px-4 py-2 rounded-lg text-sm font-medium transition-all
-                                    ${
-                                        isActive
-                                            ? "bg-pink-100 text-pink-600"
-                                            : "text-gray-700 hover:bg-gray-100"
+                                    ${isActive
+                                        ? "bg-pink-100 text-pink-600"
+                                        : "text-gray-700 hover:bg-gray-100"
                                     }`
                                 }
                             >

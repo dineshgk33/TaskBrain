@@ -40,11 +40,15 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @com.fasterxml.jackson.annotation.JsonManagedReference
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private EmployeeProfile employeeProfile;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
     @com.fasterxml.jackson.annotation.JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private User manager;
 
     @Column(name = "created_at")
@@ -53,5 +57,45 @@ public class User {
     @PrePersist
     protected void onCreate() {
         createdAt = java.time.LocalDateTime.now();
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public String getWorkRole() {
+        return workRole;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public EmployeeProfile getEmployeeProfile() {
+        return employeeProfile;
+    }
+
+    public User getManager() {
+        return manager;
     }
 }

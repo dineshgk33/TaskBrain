@@ -1,6 +1,7 @@
-import { ClipboardList, CheckCircle, Clock } from "lucide-react";
+import { ClipboardList, CheckCircle, Clock, Eye } from "lucide-react";
 import { useState, useEffect } from "react";
-import { getTasksByUser } from "../../services/taskService";
+import { getTasksByUser, updateTaskProgress } from "../../services/taskService";
+import RequirementViewModal from "../../components/dashboard/RequirementViewModal";
 
 const StatCard = ({ title, value, icon, color }) => {
     const Icon = icon;
@@ -27,6 +28,10 @@ const EmployeeDashboard = () => {
         pending: 0
     });
 
+    // Modal State
+    const [isReqModalOpen, setIsReqModalOpen] = useState(false);
+    const [selectedReqTask, setSelectedReqTask] = useState(null);
+
     useEffect(() => {
         fetchTasks();
     }, []);
@@ -47,6 +52,11 @@ const EmployeeDashboard = () => {
         } catch (error) {
             console.error("Failed to fetch tasks", error);
         }
+    };
+
+    const handleViewRequirements = (task) => {
+        setSelectedReqTask(task);
+        setIsReqModalOpen(true);
     };
 
     return (
@@ -102,20 +112,110 @@ const EmployeeDashboard = () => {
                     </div>
                     <div className="divide-y">
                         {tasks.map(task => (
-                            <div key={task.taskId} className="p-4 hover:bg-gray-50 flex items-center justify-between">
-                                <div>
-                                    <h4 className="font-medium text-gray-800">{task.taskName}</h4>
+                            <div key={task.taskId} className="p-4 hover:bg-gray-50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div className="flex-1">
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <h4 className="font-medium text-gray-800">{task.taskName}</h4>
+                                        {task.phase && (
+                                            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-50 text-indigo-600 border border-indigo-100 uppercase tracking-wide">
+                                                {task.phase.replace("_", " ")}
+                                            </span>
+                                        )}
+                                    </div>
                                     <p className="text-sm text-gray-500 line-clamp-1">{task.description}</p>
+
+                                    {/* Design Requirements Button */}
+                                    <div className="mt-3">
+                                        {task.designRequirements ? (
+                                            <button
+                                                onClick={() => handleViewRequirements(task)}
+                                                className="group flex items-center gap-2 text-xs font-medium text-violet-600 bg-violet-50 hover:bg-violet-100 border border-violet-100 px-3 py-2 rounded-lg transition-colors"
+                                            >
+                                                <span>🎨</span>
+                                                View Design Requirements
+                                                <Eye className="w-3 h-3 text-violet-400 group-hover:text-violet-600 transition-colors" />
+                                            </button>
+                                        ) : (
+                                            <p className="text-xs text-gray-400 italic flex items-center gap-1">
+                                                <span>🎨</span> No requirements set
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* Approval Status Message */}
+                                    {task.approvalStatus === 'PENDING' && (
+                                        <p className="text-xs text-amber-600 font-medium mt-2 flex items-center gap-1">
+                                            <ClipboardList className="w-3 h-3" /> Under Manager Review
+                                        </p>
+                                    )}
+                                    {task.approvalStatus === 'REJECTED' && (
+                                        <p className="text-xs text-red-600 font-medium mt-2">
+                                            ⚠️ Rejected: check feedback and revise.
+                                        </p>
+                                    )}
                                 </div>
-                                <span className={`px-3 py-1 rounded-full text-xs font-medium 
-                                    ${task.status === 'COMPLETED' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
-                                    {task.status || 'PENDING'}
-                                </span>
+
+                                <div className="flex items-center gap-4 min-w-[200px]">
+                                    {/* Progress Control */}
+                                    <div className="flex flex-col w-full gap-1">
+                                        <div className="flex justify-between text-xs text-gray-600">
+                                            <span>Progress</span>
+                                            <span className="font-medium">{task.progress}%</span>
+                                        </div>
+                                        {task.approvalStatus === 'PENDING' ? (
+                                            <div className="w-full bg-gray-100 rounded-full h-2">
+                                                <div className="bg-amber-400 h-2 rounded-full" style={{ width: `${task.progress}%` }} />
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-center gap-2">
+                                                <input
+                                                    type="range"
+                                                    min="0"
+                                                    max="100"
+                                                    value={task.progress}
+                                                    onChange={(e) => {
+                                                        const val = parseInt(e.target.value);
+                                                        setTasks(curr => curr.map(t => t.taskId === task.taskId ? { ...t, progress: val } : t));
+                                                    }}
+                                                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-violet-600"
+                                                />
+                                                <button
+                                                    onClick={async () => {
+                                                        try {
+                                                            await updateTaskProgress(task.taskId, task.progress);
+                                                            alert("Progress revised!");
+                                                            fetchTasks(); // Refresh to check for strict phase transitions
+                                                        } catch (e) {
+                                                            alert("Update failed");
+                                                        }
+                                                    }}
+                                                    className="px-2 py-1 text-xs bg-violet-600 text-white rounded hover:bg-violet-700"
+                                                >
+                                                    Save
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Status Badge */}
+                                    <span className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap
+                                        ${task.status === 'COMPLETED' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
+                                        {task.status || 'PENDING'}
+                                    </span>
+                                </div>
                             </div>
                         ))}
                     </div>
                 </div>
             )}
+
+            {/* REQUIREMENTS MODAL */}
+            <RequirementViewModal
+                isOpen={isReqModalOpen}
+                onClose={() => setIsReqModalOpen(false)}
+                title={selectedReqTask?.taskName}
+                content={selectedReqTask?.designRequirements}
+            />
         </div>
     );
 };

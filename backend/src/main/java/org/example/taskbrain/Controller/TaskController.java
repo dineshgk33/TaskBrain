@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.example.taskbrain.model.Task;
 import org.example.taskbrain.service.TaskService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,5 +37,58 @@ public class TaskController {
     public ResponseEntity<List<Task>> getTasksByUser(@PathVariable Long userId) {
         List<Task> tasks = taskService.getTasksByUserId(userId);
         return ResponseEntity.ok(tasks);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Task>> getAllTasks() {
+        return ResponseEntity.ok(taskService.getAllTasks());
+    }
+
+    @PutMapping("/{taskId}/progress")
+    public ResponseEntity<Task> updateProgress(@PathVariable Long taskId,
+            @RequestBody java.util.Map<String, Integer> body) {
+        int progress = body.get("progress");
+        return ResponseEntity.ok(taskService.updateProgress(taskId, progress));
+    }
+
+    @PutMapping("/{taskId}/approval")
+    public ResponseEntity<Task> approveTask(@PathVariable Long taskId,
+            @RequestBody java.util.Map<String, Object> body) {
+        boolean approved = (boolean) body.get("approved");
+        String feedback = (String) body.getOrDefault("feedback", "");
+        return ResponseEntity.ok(taskService.approveTask(taskId, approved, feedback));
+    }
+
+    @PatchMapping("/{taskId}/requirements")
+    public ResponseEntity<Task> updateRequirements(@PathVariable Long taskId,
+            @RequestBody java.util.Map<String, String> body) {
+        String requirements = body.get("requirements");
+        Task updatedTask = taskService.updateDesignRequirements(taskId, requirements);
+        return ResponseEntity.ok(updatedTask);
+    }
+
+    @PutMapping("/{taskId}/submit")
+    public ResponseEntity<Task> submitTask(@PathVariable Long taskId) {
+        return ResponseEntity.ok(taskService.submitForApproval(taskId));
+    }
+
+    @PostMapping("/{taskId}/design")
+    public ResponseEntity<?> uploadDesign(@PathVariable Long taskId, @RequestParam("file") MultipartFile file) {
+        try {
+            Task updatedTask = taskService.uploadDesignImage(taskId, file);
+            return ResponseEntity.ok(updatedTask);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{taskId}/design")
+    public ResponseEntity<?> deleteDesign(@PathVariable Long taskId, @RequestParam("imageUrl") String imageUrl) {
+        try {
+            Task updatedTask = taskService.deleteDesignImage(taskId, imageUrl);
+            return ResponseEntity.ok(updatedTask);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

@@ -17,4 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @org.springframework.data.jpa.repository.Query("DELETE FROM User u WHERE u.active = false AND u.createdAt < :cutoffTime")
     void deleteUnverifiedOlderThan(
             @org.springframework.data.repository.query.Param("cutoffTime") java.time.LocalDateTime cutoffTime);
+
+    java.util.List<User> findByRole(org.example.taskbrain.model.Role role);
 }

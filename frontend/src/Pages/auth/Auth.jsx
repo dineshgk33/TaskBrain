@@ -8,7 +8,7 @@ import Navbar from "../../components/navbar/Navbar.jsx";
 
 
 const Auth = () => {
-  const [mode, setMode] = useState("signup");
+  const [mode, setMode] = useState("login ");
 
   return (
     <>

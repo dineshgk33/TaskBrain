@@ -42,6 +42,7 @@ const LoginForm = ({ onSwitch }) => {
 
       localStorage.setItem("token", response.token);
       localStorage.setItem("role", finalRole); // Store 'manager', 'employee', or 'student'
+      localStorage.setItem("workRole", response.workRole || ""); // Store specific work role (e.g., DESIGNER)
       localStorage.setItem("userEmail", response.email);
       localStorage.setItem("userId", response.userId);
       localStorage.setItem("isAuthenticated", "true");

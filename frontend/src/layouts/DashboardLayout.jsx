@@ -1,6 +1,8 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "../components/dashboard/Sidebar";
+import ManagerChatWidget from "../components/dashboard/ManagerChatWidget";
+import EmployeeChatWidget from "../components/dashboard/EmployeeChatWidget";
 
 const DashboardLayout = () => {
     const navigate = useNavigate();
@@ -9,7 +11,7 @@ const DashboardLayout = () => {
 
     const handleLogout = () => {
         localStorage.clear();
-        navigate("/auth");
+        navigate("/");
     };
 
     return (
@@ -39,9 +41,16 @@ const DashboardLayout = () => {
                     </div>
 
                     <div className="flex items-center gap-4">
-                <span className="hidden sm:inline-block px-3 py-1 rounded-full text-sm bg-pink-100 text-pink-600 capitalize">
-                    {role}
-                </span>
+                        <span className="hidden sm:inline-block px-3 py-1 rounded-full text-sm bg-pink-100 text-pink-600 capitalize">
+                            {role}
+                        </span>
+
+                        <button
+                            onClick={() => navigate("/")}
+                            className="text-gray-600 hover:text-pink-600 font-medium"
+                        >
+                            Home
+                        </button>
 
                         <button
                             onClick={() => navigate("/dashboard/profile")}
@@ -69,6 +78,10 @@ const DashboardLayout = () => {
                     <Outlet />
                 </main>
             </div>
+
+            {/* Persistent Manager Chatbot */}
+            {role && role.toLowerCase() === "manager" && <ManagerChatWidget />}
+            {role && role.toLowerCase() === "employee" && <EmployeeChatWidget />}
         </div>
 
     );
