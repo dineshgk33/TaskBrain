@@ -2,6 +2,7 @@ import { useState } from "react";
 import RoleSelector from "./RoleSelector.jsx";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/authService";
+import { Eye, EyeOff } from "lucide-react";
 
 
 const SignupForm = ({ onSwitch }) => {
@@ -9,6 +10,7 @@ const SignupForm = ({ onSwitch }) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState("");
 
   const handleSignup = async (e) => {
@@ -100,14 +102,23 @@ const SignupForm = ({ onSwitch }) => {
           className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-pink-500"
         />
 
-        <input
-          type="password"
-          placeholder="Password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-pink-500"
-        />
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-pink-500 pr-12"
+          />
+          <button
+            type="button"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
 
         {/* ROLE SELECTION */}
         <RoleSelector role={role} setRole={setRole} />

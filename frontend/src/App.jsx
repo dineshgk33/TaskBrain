@@ -9,8 +9,8 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
 import UserManagement from "./pages/dashboard/manager/UserManagement.jsx";
 import Profile from "./pages/dashboard/Profile.jsx";
-import Projects from "./Pages/dashboard/manager/Projects.jsx";
-import Tasks from "./Pages/dashboard/manager/Tasks.jsx"
+import Projects from "./pages/dashboard/manager/Projects.jsx";
+import Tasks from "./pages/dashboard/manager/Tasks.jsx"
 import EmployeeProjects from "./pages/dashboard/EmployeeProjects.jsx";
 import EmployeeAI from "./pages/dashboard/EmployeeAI.jsx";
 import EmployeeProgress from "./pages/dashboard/EmployeeProgress.jsx";

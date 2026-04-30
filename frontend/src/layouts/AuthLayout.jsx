@@ -15,7 +15,7 @@ const AuthLayout = ({ children }) => {
         <div
           className="m-10 p-10
             absolute inset-0
-            bg-[url('http://localhost:8080/uploads/login.svg')]
+            bg-[url('http://localhost:9999/uploads/login.svg')]
             bg-no-repeat
             bg-center
             bg-contain

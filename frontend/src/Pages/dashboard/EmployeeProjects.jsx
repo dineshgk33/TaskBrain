@@ -203,7 +203,7 @@ const EmployeeProjects = () => {
                                                     {task.designImageUrls.map((url, index) => (
                                                         <div key={index} className="flex items-center justify-between bg-violet-50 px-3 py-2 rounded-lg border border-violet-100">
                                                             <button
-                                                                onClick={() => setViewImage(`http://localhost:8080/${url}`)}
+                                                                onClick={() => setViewImage(`http://localhost:9999/${url}`)}
                                                                 className="flex items-center gap-2 text-xs font-medium text-violet-700 hover:underline truncate max-w-[150px]"
                                                                 title="View Design"
                                                             >

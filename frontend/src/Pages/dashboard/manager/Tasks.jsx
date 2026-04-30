@@ -291,7 +291,7 @@ const Tasks = () => {
                                                             task.designImageUrls.map((url, index) => (
                                                                 <button
                                                                     key={index}
-                                                                    onClick={() => setViewImage(`http://localhost:8080/${url}`)}
+                                                                    onClick={() => setViewImage(`http://localhost:9999/${url}`)}
                                                                     className="flex items-center gap-1 text-violet-600 hover:underline font-medium focus:outline-none"
                                                                 >
                                                                     <ImageIcon className="w-3 h-3" />
