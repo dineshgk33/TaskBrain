@@ -1,13 +1,25 @@
-import api from "./api";
+import axios from "axios";
 
-// LOGIN
-export const login = async (data) => {
-    const response = await api.post("/auth/login", data);
-    return response.data;
+const api = axios.create({
+  baseURL: `${import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"}/api`,
+});
+
+// Add a request interceptor to include the token in all requests
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export const getAuthHeaders = () => {
+  const token = localStorage.getItem("token");
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 };
 
-// SIGNUP
-export const signup = async (data) => {
-    const response = await api.post("/auth/signup", data);
-    return response.data;
-};
+export default api;

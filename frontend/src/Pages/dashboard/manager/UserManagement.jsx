@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import UserFormModal from "../../../components/dashboard/UserFormModel.jsx";
+import UserFormModal from "../../../components/dashboard/UserFormModal.jsx";
 import EmployeeProfileModal from "../../../components/dashboard/EmployeeProfileModal.jsx";
 import { User, Pencil, Trash2, Briefcase } from "lucide-react";
 import { getAllUsers, deleteUser, createUser, updateEmployeeProfile } from "../../../services/userService";

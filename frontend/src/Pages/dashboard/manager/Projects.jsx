@@ -1,6 +1,6 @@
 import { Plus, Search, Filter, Calendar, Flag, MoreVertical, Sparkles, CheckCircle, Layout, Server, Database, UserPlus } from "lucide-react";
 import { useState, useEffect } from "react";
-import CreateProjectModal from "../../../components/dashboard/CreateProjectModel.jsx";
+import CreateProjectModal from "../../../components/dashboard/CreateProjectModal.jsx";
 import TechStackModal from "../../../components/dashboard/TechStackModal.jsx";
 import { getAllTasks } from "../../../services/taskService";
 import { getAllProjects, allocateTask } from "../../../services/projectService";
