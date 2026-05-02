@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:9999/api/tasks";
+const API_URL = "https://taskbrain-backend.onrender.com/api/tasks";
 
 const getAuthHeaders = () => {
     const token = localStorage.getItem("token");
