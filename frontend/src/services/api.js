@@ -1,20 +1,13 @@
-import axios from "axios";
+import api from "./api";
 
-const api = axios.create({
-    baseURL: `${import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"}/api`,
-    headers: {
-        "Content-Type": "application/json",
-    },
-});
-
-export const getAuthHeaders = () => {
-    const token = localStorage.getItem("token");
-    return {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
+// LOGIN
+export const login = async (data) => {
+    const response = await api.post("/auth/login", data);
+    return response.data;
 };
 
-export default api;
-
+// SIGNUP
+export const signup = async (data) => {
+    const response = await api.post("/auth/signup", data);
+    return response.data;
+};
