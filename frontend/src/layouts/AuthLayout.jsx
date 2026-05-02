@@ -13,13 +13,13 @@ const AuthLayout = ({ children }) => {
       >
         {/* Background image */}
         <div
-          className="m-10 p-10
+          className={`m-10 p-10
             absolute inset-0
             bg-[url('${import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"}/uploads/login.svg')]
             bg-no-repeat
             bg-center
             bg-contain
-          "
+          `}
         />
 
         {/* Overlay content */}

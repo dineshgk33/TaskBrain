@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import java.time.Duration;
 
 import java.util.HashMap;
 
@@ -19,7 +21,6 @@ import org.example.taskbrain.model.Project;
 import org.example.taskbrain.model.User;
 
 @Service
-@RequiredArgsConstructor
 public class AIService {
 
     @Value("${GEMINI_API_KEY:}")
@@ -32,6 +33,14 @@ public class AIService {
     private String modelName;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private final RestTemplate restTemplate;
+
+    public AIService() {
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout(5000); // 5 seconds
+        factory.setReadTimeout(30000);    // 30 seconds
+        this.restTemplate = new RestTemplate(factory);
+    }
 
     public String getTechStackRecommendation(String requirement) {
         if (apiKey == null || apiKey.isEmpty() || apiKey.equals("YOUR_NEW_API_KEY_HERE_YOUR_OLD_ONE_WAS_LEAKED_AND_BLOCKED")) {
@@ -44,7 +53,7 @@ public class AIService {
                    "}";
         }
 
-        RestTemplate restTemplate = new RestTemplate();
+        // Using pre-configured restTemplate
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -144,7 +153,7 @@ public class AIService {
                    "}";
         }
 
-        RestTemplate restTemplate = new RestTemplate();
+        // Using pre-configured restTemplate
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -223,7 +232,7 @@ public class AIService {
                    "<<</DESIGN_PREVIEW>>>";
         }
 
-        RestTemplate restTemplate = new RestTemplate();
+        // Using pre-configured restTemplate
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -315,7 +324,7 @@ public class AIService {
                    "}";
         }
 
-        RestTemplate restTemplate = new RestTemplate();
+        // Using pre-configured restTemplate
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -361,7 +370,7 @@ public class AIService {
             return "(Mock AI) I am a mock assistant. Please configure a valid Gemini API key in your `.env` file to chat with me!";
         }
 
-        RestTemplate restTemplate = new RestTemplate();
+        // Using pre-configured restTemplate
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -432,7 +441,7 @@ public class AIService {
             return "(Mock AI) I am a mock mentor. Please configure a valid Gemini API key in your `.env` file to ask technical questions!";
         }
 
-        RestTemplate restTemplate = new RestTemplate();
+        // Using pre-configured restTemplate
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
