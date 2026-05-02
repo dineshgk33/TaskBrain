@@ -15,7 +15,7 @@ const AuthLayout = ({ children }) => {
         <div
           className="m-10 p-10
             absolute inset-0
-            bg-[url('https://taskbrain-5jmj.onrender.com/uploads/login.svg')]
+            bg-[url('${import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"}/uploads/login.svg')]
             bg-no-repeat
             bg-center
             bg-contain

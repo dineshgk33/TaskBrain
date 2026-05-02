@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://taskbrain-5jmj.onrender.com/api/tasks";
+const API_URL = `${import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"}/api/tasks`;
 
 const getAuthHeaders = () => {
     const token = localStorage.getItem("token");

@@ -291,7 +291,7 @@ const Tasks = () => {
                                                             task.designImageUrls.map((url, index) => (
                                                                 <button
                                                                     key={index}
-                                                                    onClick={() => setViewImage(`https://taskbrain-5jmj.onrender.com/${url}`)}
+                                                                    onClick={() => setViewImage(`${import.meta.env.VITE_API_BASE_URL || "http://localhost:8080"}/${url}`)}
                                                                     className="flex items-center gap-1 text-violet-600 hover:underline font-medium focus:outline-none"
                                                                 >
                                                                     <ImageIcon className="w-3 h-3" />
