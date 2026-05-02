@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Enable CORS
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/api/auth/**").permitAll() // Home and Auth open
+                        .requestMatchers("/", "/api/auth/**", "/favicon.ico").permitAll() // Home, Auth, and Favicon open
                         .requestMatchers("/uploads/**").permitAll() // Public access to uploaded files
                         .anyRequest().authenticated() // Everything else requires token
                 )
