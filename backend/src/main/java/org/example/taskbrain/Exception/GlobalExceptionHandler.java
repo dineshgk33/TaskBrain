@@ -17,8 +17,12 @@ public class GlobalExceptionHandler {
         Map<String, Object> error = new HashMap<>();
         error.put("timestamp", LocalDateTime.now());
         error.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-        error.put("error", "Internal Server Error");
-        error.put("message", e.getMessage());
+        error.put("error", e.getClass().getSimpleName());
+        error.put("message", e.getMessage() != null ? e.getMessage() : "No message available");
+        
+        // Print stack trace for server logs
+        e.printStackTrace();
+        
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
