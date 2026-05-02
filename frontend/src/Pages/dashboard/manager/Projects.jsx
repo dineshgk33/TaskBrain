@@ -71,21 +71,23 @@ const Projects = () => {
 
     const [isAllocationModalOpen, setIsAllocationModalOpen] = useState(false);
     const [allocationProject, setAllocationProject] = useState(null);
+    const [isAllocating, setIsAllocating] = useState(false);
 
     // Confirm Handler (Triggered by Modal)
     const handleConfirmAllocate = async (payload) => {
-        setIsAllocationModalOpen(false);
         if (!allocationProject) return;
-
+        setIsAllocating(true);
         try {
             // payload contains { type, autoCount, manualUserIds }
             await allocateTask(allocationProject.projectId, payload);
             alert("Allocation Successful!");
             fetchData(); // Refresh both projects and tasks
+            setIsAllocationModalOpen(false); // Close only on success
         } catch (error) {
             console.error("Allocation failed", error);
             alert("Failed to allocate task: " + (error.response?.data || error.message));
         } finally {
+            setIsAllocating(false);
             setAllocationProject(null);
         }
     };
@@ -219,9 +221,10 @@ const Projects = () => {
             />
             <AllocationModal
                 isOpen={isAllocationModalOpen}
-                onClose={() => setIsAllocationModalOpen(false)}
+                onClose={() => !isAllocating && setIsAllocationModalOpen(false)}
                 onAllocate={handleConfirmAllocate}
                 project={allocationProject}
+                isAllocating={isAllocating}
             />
         </>
     );

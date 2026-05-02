@@ -22,9 +22,12 @@ public class AIController {
             return ResponseEntity.badRequest().body("Requirement cannot be empty");
         }
 
-        // Returns the raw JSON string from the AI service
-        String recommendation = aiService.getTechStackRecommendation(requirement);
-        return ResponseEntity.ok(recommendation);
+        try {
+            String recommendation = aiService.getTechStackRecommendation(requirement);
+            return ResponseEntity.ok(recommendation);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @PostMapping("/chat")

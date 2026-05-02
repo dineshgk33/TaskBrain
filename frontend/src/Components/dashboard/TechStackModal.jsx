@@ -42,7 +42,8 @@ const TechStackModal = ({ isOpen, onClose, initialRequirement = "", projectId, s
             setRecommendation(data);
         } catch (error) {
             console.error("AI Error:", error);
-            alert("Failed to generate recommendation. Make sure the API key is configured.");
+            const errorMessage = error.response?.data || "Failed to generate recommendation. Make sure the API key is configured.";
+            alert(typeof errorMessage === 'string' ? errorMessage : "Failed to generate recommendation.");
         } finally {
             setLoading(false);
         }

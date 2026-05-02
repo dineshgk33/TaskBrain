@@ -34,12 +34,14 @@ public class AIService {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public String getTechStackRecommendation(String requirement) {
-        if (apiKey == null || apiKey.isEmpty()) {
-            // Fallback for development if key is missing in properties but might be in env
-            apiKey = System.getenv("GEMINI_API_KEY");
-            if (apiKey == null || apiKey.isEmpty()) {
-                throw new RuntimeException("GEMINI_API_KEY is not configured.");
-            }
+        if (apiKey == null || apiKey.isEmpty() || apiKey.equals("YOUR_NEW_API_KEY_HERE_YOUR_OLD_ONE_WAS_LEAKED_AND_BLOCKED")) {
+            return "{\n" +
+                   "  \"frontend\": {\"name\": \"React.js\", \"reason\": \"(Mock AI) Excellent for building interactive UIs.\"},\n" +
+                   "  \"backend\": {\"name\": \"Node.js / Express\", \"reason\": \"(Mock AI) Great for real-time web applications.\"},\n" +
+                   "  \"database\": {\"name\": \"PostgreSQL\", \"reason\": \"(Mock AI) Reliable and robust relational database.\"},\n" +
+                   "  \"ai_ml\": null,\n" +
+                   "  \"tools\": [\"Docker\", \"GitHub Actions\", \"Jest\"]\n" +
+                   "}";
         }
 
         RestTemplate restTemplate = new RestTemplate();
@@ -112,9 +114,17 @@ public class AIService {
                     System.out.println("Connection issue. Retrying in " + retryDelay + "ms...");
                     Thread.sleep(retryDelay);
                     retryDelay *= 2;
+                } catch (org.springframework.web.client.HttpClientErrorException e) {
+                    if (i == maxRetries) throw e;
+                    System.out.println("Client error: " + e.getStatusCode() + ". Retrying in " + retryDelay + "ms...");
+                    Thread.sleep(retryDelay);
+                    retryDelay *= 2;
                 }
             }
             throw new RuntimeException("Failed to get recommendation after retries.");
+        } catch (org.springframework.web.client.HttpClientErrorException e) {
+            e.printStackTrace();
+            throw new RuntimeException("AI API Error: " + e.getResponseBodyAsString());
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to get recommendation from AI: " + e.getMessage());
@@ -122,11 +132,16 @@ public class AIService {
     }
 
     public String recommendEmployeeForProject(Project project, List<User> candidates, int count) {
-        if (apiKey == null || apiKey.isEmpty()) {
-            apiKey = System.getenv("GEMINI_API_KEY");
-            if (apiKey == null || apiKey.isEmpty()) {
-                throw new RuntimeException("GEMINI_API_KEY is not configured.");
-            }
+        if (apiKey == null || apiKey.isEmpty() || apiKey.equals("YOUR_NEW_API_KEY_HERE_YOUR_OLD_ONE_WAS_LEAKED_AND_BLOCKED")) {
+            return "{\n" +
+                   "  \"assignments\": [\n" +
+                   "    {\n" +
+                   "      \"userId\": " + (candidates.isEmpty() ? 1 : candidates.get(0).getUserId()) + ",\n" +
+                   "      \"suggestedTaskName\": \"(Mock AI) Initial Setup & Architecture\",\n" +
+                   "      \"reason\": \"(Mock AI) Best fit based on experience.\"\n" +
+                   "    }\n" +
+                   "  ]\n" +
+                   "}";
         }
 
         RestTemplate restTemplate = new RestTemplate();
@@ -197,11 +212,15 @@ public class AIService {
 
     public String generateDesignSuggestion(String projectContext, String userPrompt,
             List<Map<String, String>> history) {
-        if (apiKey == null || apiKey.isEmpty()) {
-            apiKey = System.getenv("GEMINI_API_KEY");
-            if (apiKey == null || apiKey.isEmpty()) {
-                throw new RuntimeException("GEMINI_API_KEY is not configured.");
-            }
+        if (apiKey == null || apiKey.isEmpty() || apiKey.equals("YOUR_NEW_API_KEY_HERE_YOUR_OLD_ONE_WAS_LEAKED_AND_BLOCKED")) {
+            return "<<<DESIGN_PREVIEW>>>\n" +
+                   "<!DOCTYPE html>\n<html><head><script src=\"https://cdn.tailwindcss.com\"></script></head>\n" +
+                   "<body class=\"bg-gray-50 flex items-center justify-center h-screen\">\n" +
+                   "  <div class=\"bg-white p-8 rounded-xl shadow-lg\">\n" +
+                   "    <h1 class=\"text-2xl font-bold text-gray-800\">(Mock AI) UI Design</h1>\n" +
+                   "    <p class=\"text-gray-500 mt-2\">Please configure a valid Gemini API key to generate real designs.</p>\n" +
+                   "  </div>\n</body></html>\n" +
+                   "<<</DESIGN_PREVIEW>>>";
         }
 
         RestTemplate restTemplate = new RestTemplate();
@@ -288,11 +307,12 @@ public class AIService {
     }
 
     public String generateProjectInsights(String projectData) {
-        if (apiKey == null || apiKey.isEmpty()) {
-            apiKey = System.getenv("GEMINI_API_KEY");
-            if (apiKey == null || apiKey.isEmpty()) {
-                throw new RuntimeException("GEMINI_API_KEY is not configured.");
-            }
+        if (apiKey == null || apiKey.isEmpty() || apiKey.equals("YOUR_NEW_API_KEY_HERE_YOUR_OLD_ONE_WAS_LEAKED_AND_BLOCKED")) {
+            return "{\n" +
+                   "  \"risks\": [{\"title\": \"API Key Missing\", \"severity\": \"High\", \"description\": \"(Mock AI) No real insights can be generated without a valid API key.\"}],\n" +
+                   "  \"recommendations\": [{\"title\": \"Configure Gemini\", \"action\": \"Update your .env file with a valid API key.\"}],\n" +
+                   "  \"team_health\": {\"score\": 100, \"status\": \"Good\", \"summary\": \"(Mock AI) Everything looks fine!\"}\n" +
+                   "}";
         }
 
         RestTemplate restTemplate = new RestTemplate();
@@ -337,11 +357,8 @@ public class AIService {
     }
 
     public String chatWithManager(String message, List<Map<String, String>> history) {
-        if (apiKey == null || apiKey.isEmpty()) {
-            apiKey = System.getenv("GEMINI_API_KEY");
-            if (apiKey == null || apiKey.isEmpty()) {
-                throw new RuntimeException("GEMINI_API_KEY is not configured.");
-            }
+        if (apiKey == null || apiKey.isEmpty() || apiKey.equals("YOUR_NEW_API_KEY_HERE_YOUR_OLD_ONE_WAS_LEAKED_AND_BLOCKED")) {
+            return "(Mock AI) I am a mock assistant. Please configure a valid Gemini API key in your `.env` file to chat with me!";
         }
 
         RestTemplate restTemplate = new RestTemplate();
@@ -411,11 +428,8 @@ public class AIService {
     }
 
     public String chatWithEmployee(String message, List<Map<String, String>> history) {
-        if (apiKey == null || apiKey.isEmpty()) {
-            apiKey = System.getenv("GEMINI_API_KEY");
-            if (apiKey == null || apiKey.isEmpty()) {
-                throw new RuntimeException("GEMINI_API_KEY is not configured.");
-            }
+        if (apiKey == null || apiKey.isEmpty() || apiKey.equals("YOUR_NEW_API_KEY_HERE_YOUR_OLD_ONE_WAS_LEAKED_AND_BLOCKED")) {
+            return "(Mock AI) I am a mock mentor. Please configure a valid Gemini API key in your `.env` file to ask technical questions!";
         }
 
         RestTemplate restTemplate = new RestTemplate();
