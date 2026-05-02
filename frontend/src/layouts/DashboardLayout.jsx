@@ -1,8 +1,8 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Sidebar from "../components/dashboard/Sidebar";
-import ManagerChatWidget from "../components/dashboard/ManagerChatWidget";
-import EmployeeChatWidget from "../components/dashboard/EmployeeChatWidget";
+import Sidebar from "../components/dashboard/Sidebar.jsx";
+import ManagerChatWidget from "../components/dashboard/ManagerChatWidget.jsx";
+import EmployeeChatWidget from "../components/dashboard/EmployeeChatWidget.jsx";
 
 const DashboardLayout = () => {
     const navigate = useNavigate();
