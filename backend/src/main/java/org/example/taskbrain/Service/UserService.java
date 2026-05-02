@@ -15,6 +15,9 @@ public class UserService {
     private final org.example.taskbrain.repository.EmployeeProfileRepository employeeProfileRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    
+    @org.springframework.beans.factory.annotation.Value("${app.url:http://localhost:8080}")
+    private String appUrl;
 
     public java.util.List<User> getAllUsers() {
         return userRepository.findAll();
@@ -99,8 +102,8 @@ public class UserService {
         User savedUser = userRepository.save(user);
 
         try {
-            // NOTE: Change "http://localhost:8080" to your actual domain if deployed
-            emailService.sendVerificationEmail(user.getEmail(), "http://localhost:8080", randomCode);
+            // Use configurable APP_URL for emails
+            emailService.sendVerificationEmail(user.getEmail(), appUrl, randomCode);
         } catch (Exception e) {
             System.out.println("⚠️ WARNING: Email could not be sent. Expected if SMTP is not configured.");
             System.out.println("Error: " + e.getMessage());

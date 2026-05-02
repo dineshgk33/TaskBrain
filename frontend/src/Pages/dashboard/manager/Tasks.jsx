@@ -291,7 +291,7 @@ const Tasks = () => {
                                                             task.designImageUrls.map((url, index) => (
                                                                 <button
                                                                     key={index}
-                                                                    onClick={() => setViewImage(`https://taskbrain-backend.onrender.com/${url}`)}
+                                                                    onClick={() => setViewImage(`https://taskbrain-5jmj.onrender.com/${url}`)}
                                                                     className="flex items-center gap-1 text-violet-600 hover:underline font-medium focus:outline-none"
                                                                 >
                                                                     <ImageIcon className="w-3 h-3" />

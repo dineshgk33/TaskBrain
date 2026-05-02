@@ -74,7 +74,7 @@ const EmployeeAI = () => {
             const projectContext = `Project: ${selectedProject.projectName}. Description: ${selectedProject.description}. Tech Stack: ${selectedProject.frontendTech}, ${selectedProject.backendTech}.`;
 
             const response = await axios.post(
-                "https://taskbrain-backend.onrender.com/api/ai/chat",
+                "https://taskbrain-5jmj.onrender.com/api/ai/chat",
                 {
                     projectContext,
                     userPrompt: userMsg.content,

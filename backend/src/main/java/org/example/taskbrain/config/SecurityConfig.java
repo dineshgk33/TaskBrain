@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Enable CORS
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // Login/Signup open
+                        .requestMatchers("/", "/api/auth/**").permitAll() // Home and Auth open
                         .requestMatchers("/uploads/**").permitAll() // Public access to uploaded files
                         .anyRequest().authenticated() // Everything else requires token
                 )
@@ -55,7 +55,7 @@ public class SecurityConfig {
     @Bean
     public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
         org.springframework.web.cors.CorsConfiguration configuration = new org.springframework.web.cors.CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:3000")); // Frontend URL
+        configuration.setAllowedOriginPatterns(List.of("*")); // Allow all origins for production
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
