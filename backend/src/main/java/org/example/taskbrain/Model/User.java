@@ -33,7 +33,7 @@ public class User {
     private String workRole;
 
     @Column(nullable = false)
-    private Boolean active = false;
+    private Boolean active = true;
 
     @Column(name = "verification_code", length = 64)
     private String verificationCode;

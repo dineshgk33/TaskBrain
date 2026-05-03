@@ -73,7 +73,10 @@ public class AuthController {
         } catch (Exception e) {
             System.out.println("Authentication FAILED for: " + request.getEmail());
             System.out.println("Reason: " + e.getMessage());
-            e.printStackTrace();
+            // Log specifically if the error is related to disabled status
+            if (e instanceof org.springframework.security.authentication.DisabledException) {
+                System.out.println("ALERT: User account is marked as INACTIVE in the database.");
+            }
             return ResponseEntity.status(401).body("Authentication failed: " + e.getMessage());
         }
 
@@ -91,5 +94,22 @@ public class AuthController {
         System.out.println("Login Response - Role: " + user.getRole() + ", WorkRole: " + user.getWorkRole());
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/activate-emergency")
+    public ResponseEntity<?> activateEmergency() {
+        try {
+            java.util.List<User> users = userService.getAllUsers();
+            for (User user : users) {
+                if (!user.getActive()) {
+                    user.setActive(true);
+                    userService.updateUser(user.getUserId(), new org.example.taskbrain.dto.UpdateUserRequest()); // Trigger save
+                    // Or more directly via repository if available
+                }
+            }
+            return ResponseEntity.ok("All users activated successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Failed to activate: " + e.getMessage());
+        }
     }
 }

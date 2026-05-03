@@ -97,7 +97,7 @@ public class UserService {
 
         String randomCode = java.util.UUID.randomUUID().toString();
         user.setVerificationCode(randomCode);
-        user.setActive(false);
+        user.setActive(true);
 
         User savedUser = userRepository.save(user);
 

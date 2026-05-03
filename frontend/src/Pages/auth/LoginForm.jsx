@@ -60,7 +60,10 @@ const LoginForm = ({ onSwitch }) => {
 
     } catch (error) {
       console.error("Login Error:", error);
-      alert("Login failed: " + (error.message || JSON.stringify(error)));
+      const errorMessage = typeof error === 'string' 
+        ? error 
+        : (error.message || error.error || "Invalid credentials. Please check your email and password.");
+      alert("Login failed: " + errorMessage);
     }
   };
 

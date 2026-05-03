@@ -71,7 +71,10 @@ const SignupForm = ({ onSwitch }) => {
 
     } catch (error) {
       console.error("Signup Error:", error);
-      alert("Signup failed: " + (error.message || JSON.stringify(error)));
+      const errorMessage = typeof error === 'string' 
+        ? error 
+        : (error.message || error.error || "Signup failed. Please try again.");
+      alert("Signup failed: " + errorMessage);
     }
   };
 
